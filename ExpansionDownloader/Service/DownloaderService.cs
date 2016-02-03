@@ -377,6 +377,12 @@ namespace ExpansionDownloader.Service
 
         #region Public Methods and Operators
 
+        public static bool NeedsUpdateDownloads(Context context)
+        {
+            PackageInfo pi = context.PackageManager.GetPackageInfo(context.PackageName, 0);
+            return IsLvlCheckRequired(pi);
+        }
+
         /// <summary>
         /// This version assumes that the intent contains the pending intent as
         /// a parameter. This is used for responding to alarms.

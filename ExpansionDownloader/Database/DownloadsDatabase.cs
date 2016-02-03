@@ -138,6 +138,34 @@ namespace ExpansionDownloader.Database
         #region Public Methods and Operators
 
         /// <summary>
+        /// Reset the downloads database, deletes metadata files and resets status to default.
+        /// </summary>
+        public static void Reset()
+        {
+            downloadStatus = ExpansionDownloadStatus.Unknown;
+            flags = 0;
+            versionCode = -1;
+
+            if (File.Exists(XmlDatastore.GetDataPath<MetadataTable>()))
+            {
+                try
+                {
+                    File.Delete(XmlDatastore.GetDataPath<MetadataTable>());
+                }
+                catch(Exception) { }
+            }
+
+            if (File.Exists(XmlDatastore.GetDataPath<DownloadInfo>()))
+            {
+                try
+                {
+                    File.Delete(XmlDatastore.GetDataPath<DownloadInfo>());
+                }
+                catch(Exception) { }
+            }
+        }
+
+        /// <summary>
         /// Returns the download information for the given filename.
         /// </summary>
         /// <param name="fileName">
